@@ -7,6 +7,8 @@
 // fetching required anywhere on this page.
 
 import { getRecentSignals, getStats } from "@/lib/db/logger";
+import { getLatestFeatureValues } from "@/lib/db/featureStore";
+import { FEATURE_REGISTRY } from "@/lib/features/registry";
 import DashboardHeader from "@/components/DashboardHeader";
 import SymbolTabs from "@/components/SymbolTabs";
 import ScoreCard from "@/components/ScoreCard";
@@ -19,6 +21,7 @@ import ExplainerSection from "@/components/ExplainerSection";
 import SignalQuality from "@/components/SignalQuality";
 import DataSourceGlossary from "@/components/DataSourceGlossary";
 import EmptyState from "@/components/EmptyState";
+import FeaturesPanel from "@/components/FeaturesPanel";
 
 // This page's data changes every 15 minutes via Cron and depends on a
 // request-time query param — always render fresh rather than letting Next
@@ -33,9 +36,10 @@ export default async function DashboardPage({ searchParams }) {
   const requested = typeof params?.symbol === "string" ? params.symbol.toUpperCase() : null;
   const selectedSymbol = SYMBOLS.includes(requested) ? requested : SYMBOLS[0];
 
-  const [signals, stats] = await Promise.all([
+  const [signals, stats, features] = await Promise.all([
     getRecentSignals(selectedSymbol, HISTORY_LIMIT),
     getStats(selectedSymbol),
+    getLatestFeatureValues(selectedSymbol, Object.keys(FEATURE_REGISTRY)),
   ]);
 
   const latest = signals[0] ?? null;
@@ -65,6 +69,8 @@ export default async function DashboardPage({ searchParams }) {
             </section>
 
             <SignalQuality score={latest?.imbalance_score} signals={signals} />
+
+            <FeaturesPanel features={features} />
 
             <section
               aria-label="Imbalance score history"
