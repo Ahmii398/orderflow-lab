@@ -1,0 +1,47 @@
+{
+  "_comment": "Configuration for the Feature Engineering layer (lib/features). Every tunable parameter for every feature lives here — feature code must never hardcode a threshold, window size, or scaling constant. Keys match the feature registry names in lib/features/registry.js.",
+
+  "retail_long_percent": {
+    "range": [0, 100],
+    "staleness": { "maxAgeMinutes": 180 }
+  },
+
+  "retail_short_percent": {
+    "range": [0, 100],
+    "staleness": { "maxAgeMinutes": 180 }
+  },
+
+  "long_delta": {
+    "windows": { "shortReadings": 5, "mediumReadings": 15 },
+    "hourWindowMs": 3600000,
+    "normalizationSwingPoints": 20,
+    "staleness": { "maxAgeMinutes": 180 }
+  },
+
+  "short_delta": {
+    "windows": { "shortReadings": 5, "mediumReadings": 15 },
+    "hourWindowMs": 3600000,
+    "normalizationSwingPoints": 20,
+    "staleness": { "maxAgeMinutes": 180 }
+  },
+
+  "velocity": {
+    "lookbackReadings": 5,
+    "maxExpectedSlopePerReading": 5,
+    "minReadingsForFullConfidence": 5,
+    "staleness": { "maxAgeMinutes": 180 }
+  },
+
+  "acceleration": {
+    "lookbackReadings": 5,
+    "maxExpectedAccelerationPerReading": 3,
+    "minReadingsForFullConfidence": 10,
+    "staleness": { "maxAgeMinutes": 180 }
+  },
+
+  "persistence": {
+    "neutralBandPercent": 5,
+    "maxStreakForFullScore": 20,
+    "staleness": { "maxAgeMinutes": 180 }
+  }
+}

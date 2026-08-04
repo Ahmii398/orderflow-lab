@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+/*
+  globals.css
+  Global stylesheet. Tailwind CSS is enabled project-wide via the single
+  @import above (Tailwind v4 style).
+
+  Design tokens for the dashboard live in the @theme block below. Rationale
+  for the palette: "signal" (a muted gold) is the brand accent, distinct
+  from the semantic bullish/bearish colors used for directional data so the
+  two meanings never collide. bullish/bearish/neutral are deliberately a
+  little desaturated rather than traffic-light-bright, since they show up a
+  lot on this page (badges, chart bars, table pills) and shouldn't shout.
+*/
+@theme {
+  --color-ink: #16233d;
+  --color-paper: #f5f6f8;
+  --color-line: #e2e6ed;
+  --color-muted: #6b7590;
+
+  --color-signal: #c8963c;
+  --color-signal-soft: #f6ecd9;
+
+  --color-bullish: #1f9d55;
+  --color-bullish-soft: #e7f6ed;
+
+  --color-bearish: #d64545;
+  --color-bearish-soft: #fceaea;
+
+  --color-neutral: #8a94a6;
+  --color-neutral-soft: #eef0f3;
+
+  --font-display: var(--font-display-family), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-body-family), ui-sans-serif, system-ui, sans-serif;
+  --font-figure: var(--font-figure-family), ui-monospace, SFMono-Regular, monospace;
+}
